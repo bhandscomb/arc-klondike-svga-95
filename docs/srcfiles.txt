@@ -1,0 +1,34 @@
+The code has been written in a modular fashion, has is therefore in many
+different pieces. There are, however, only three main classes of files that
+make up the complete source. The "main" modules could be described as
+application level, in that they say what is to be done and when. The
+"support" modules could be described as kernel level, since they perform
+most of the dirty work in the game. Finally, there are a few files that
+act as glue to ensure all the different source files get along... :-)
+
+
+"Main" Modules
+
+MAIN.C        Main loop and game "system" (runs game engine)
+
+GAME.H        Various definitions for the game
+KLONGAME.C    The game engine
+
+CHOOSER.C     Deck selector
+ICONS.H       Host O/S icons (used in deck selector)
+
+
+"Support" Modules
+
+CONFIG.C      Config file handling
+ERRMSG.[CH]   Error number decoder
+MOUSE.[CH]    Mouse pointer handling
+REKO.[CH]     Cardset handling
+TEXT.[CH]     Text/Font handling
+VESA.[CH]     Video handling
+
+
+Miscellaneous Files
+
+MYTYPES.H     Various useful type definitions
+PROTOS.H      Function prototypes

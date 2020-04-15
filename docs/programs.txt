@@ -1,0 +1,14 @@
+
+End-User Software
+   KLONDIKE   (GAME.GNU)       The actual game
+   CARDINFO   (CARDINFO.GNU)   \  Klondike Utilities
+   SPLTCRDS   (SPLTCRDS.GNU)   / (supplied with game)
+
+KLN Graphic Toolkit
+   BMP2KLN    (BMP2KLN.GNU)   Graphic converter
+   SHOWKLN    (SHOWKLN.GNU)   Graphic displayer
+
+Installation Toolkit
+   CMPR       (CMPR.GNU)      Compressor
+   MQ         (MQ.GNU)        Queue Builder
+   INSTALL    (INSTALL.GNU)   Installer

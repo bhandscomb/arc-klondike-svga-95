@@ -1,0 +1,71 @@
+KLN Bitmap File Format
+======================
+
+KLN is a 16-bit "HiColor" bitmap format, created because requirements could
+not be met with existing formats. The description that follows leans towards
+the implementation of a decoder.
+
+
+Header
+======
+
+Identification string is as follows:
+
+    char KLN_TAG[]="Klondike Gfx!\015\012\032";
+
+Thus, at an MS-DOS prompt, the user can "TYPE" a KLN file and get a fairly
+reasonable output. the "\015\012\032" is a carriage return and line feed pair
+(the standard MS-DOS end-of-line marker) followed by a Ctrl-Z (the standard
+MS-DOS end-of-file marker).
+
+This is immediately at the start of the file and is followed directly by the
+width then the height of the image in pixels. These values are "long words"
+and in little-endian format, the native for MS-DOS machines.
+
+
+Bitmap Data
+===========
+
+The bitmap data is packed using an algorithm similar to that found in the
+IFF-ILBM format, but modified for 16-bit data.
+
+Each row of data is packed in isolation. The first word of the compressed
+data stream is the length of the compressed row in words. This is intended
+to allow a more efficient read scheme to be employed. The compressed data
+follows and should be interpreted as follows:
+
+While the row is unfinished, the next word is both a flag and a length word.
+The most significant bit if set signifies a run of identical words. The lower
+15 bits specify how many words are to be set as per the following word from
+the data stream. If the most significant bit of the length word is NOT set,
+the lower 15 bits specify how many words of literal data are to be copied as
+is from the data stream.
+
+Once the row is finished, the resulting output stream is in a format to allow
+a direct copy to a HiColor (16-bit) SVGA screen buffer, thus each word is
+formed bitwise as RRRR RGGG GGGB BBBB (5 red, 6 green, 5 blue).
+
+For encoding, the main complexity is deciding at which point a literal run
+should be stored, though the 16-bit data will have to be created from some
+other source. At present, KLNs may only be made from 24-bit BMP files, and
+the encoder could possibly create a "better" data stream by watching out for
+some special cases. In particular note the following case:
+
+    INPUT:        1111 1111 2222 3333 3333 4444 5555 5555 6666
+    TYPICAL OUT:  RUN2 1111 LIT1 2222 RUN2 3333 LIT1 4444 RUN2 5555 LIT1 6666
+    BETTER OUT:   LIT9 1111 1111 2222 3333 3333 4444 5555 5555 6666
+
+Runs gain N-2 words (where N is the length of the run), so therefore a run of
+two words doesn't reduce the row length. All literals expand the row length
+by 1 word per literal, so the worst case literal doubles the required storage
+requirements. In order to force a one word literal, you have to have a run on
+both sides, therefore the worst case is shown above, where the typical output
+of the encoder actually increases the row length by one third of the original
+while the optimum output increases the row length by only one word.
+
+In practise, because this is not a general-purpose graphic format, and also
+because the compression is only a token gesture at reducing file size, this
+special-case encoding will not be investigated further, save for the fact
+that if the output data be of a greater length than the input data, the
+encoder could respond by writing the original data prefixed by a literal code
+stating the length of the input data, thus reducing the loss to one word.

@@ -1,0 +1,77 @@
+VERSION HISTORY
+~~~~~~~~~~~~~~~
+
+PRE-RELEASE BETA TEST VERSIONS:
+
+0.x     Development versions
+1.0     Initial working version
+1.0a    Added deck loop counter
+1.0b    Cardset selector could be double clicked
+1.0c    Cardset selector list scroll now repeats
+
+
+RELEASE VERSION (21/03/96):
+
+1.0r    Real title/win pictures instead of Amiga screen grabs
+
+
+BETA TEST VERSIONS:
+
+1.1     Added DOSemu check since Klondike 95 doesn't run under DOSemu on a
+        Linux box - because of the VESA calls perhaps??
+
+1.1a    Removed DOSemu check (it crashed real DOS - oops) and fixed the
+        "thank you" exit message to say "Klondike 95" instead of "... SVGA"
+        Also added a couple more "Remember..." messages.
+
+1.1b    Mainly source tidy ups, but a few other minor changes.
+
+1.1c    Optimized memory usage of config file handler.
+
+1.1d    Above change broke some things - fixed.
+
+1.1e    Created installer. Added a couple more "Remember..." messages.
+
+1.1f    Improved file structure - decks and "data" now in sub-directories.
+
+1.1g    Minor bugfix to file structure change.
+
+1.1h    Added (some) use of Win 95 Virtual Machine Services.
+
+1.1i    Ported to DJGPP, so Klondike 95 now needs DPMI services. This change
+        resulted in the screen code slowing down, so the 'picture' routines
+        have been re-engineered and have become faster than before :-)
+
+1.1j    Un-did some VM service usage, added some others. Fixed bug in HAM6
+        support - will probably never get used, but it should work now...
+        Changed 'deal' code a little to use 'Reko' card for suit bases if
+        deck has none of it's own - I forgot to check the Amiga original.
+
+1.1k    Finished adding cardset info system to selector screen. Ported
+        installer to DJGPP (as per game) and switched to a different
+        and better compressor.
+
+1.1l    Final(?) DJGPP implementation fixes to game (random, etc) and the
+        installer.
+
+1.1m    Fixed a few compiler warnings (project wide, eek!) and created HTML
+        version of docs (got bored!)
+
+1.1n    Added MIDI port music - pretty naff coz there are no settings
+        available to change... Also fixed a few more compiler warnings and
+        added a fun "time-bomb" like feature (hehe)...
+
+1.1o    Changed the "SELECT" button in the cardset selector screen to a
+        scroll indicator, as per the cardset info display.
+
+1.1p    MIDI now has settings (SETSOUND) which also change change settings
+        for "Amiga" and CD music. CD Music is not yet implemented in the game
+        and the MOD player seems a bit dodgy (dunno why) so this version is
+        mainly just a version bump with "beta" features...
+
+
+***NOTE***
+
+1.1p will be the last beta 1.1 and there will be no release version, which
+would have been "1.1r" - it's high time for version 2.0 to be started with
+rewritten "game" code, because frankly, it's a mess...
