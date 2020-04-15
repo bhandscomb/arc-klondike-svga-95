@@ -1,0 +1,20 @@
+SPLTCRDS - A Klondike Utility
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The purpose of this tool is to split a cardset into component cards in one
+of three file formats, these being IFF ILBM, BMP and RAW. RAW format is for
+Klondike 95 devlopment purposes only at present, and is thus not documented.
+
+Usage:
+    spltcrds <filename> [/I | /B | /R]
+
+Switches:
+    /I   IFF ILBM format (default due to origin of Klondike)
+    /B   BMP format (24-bit)
+    /R   RAW format (24-bit)
+
+The cards will be individual pictures named CARD00.LBM, CARD01.LBM, etc, or
+CARD00.BMP, CARD01.BMP, etc, if output requested in BMP format or CARD00.RAW,
+CARD01.RAW, etc, if output requested in RAW format.
+
+NOTE: RKP format cardsets cannot be dumped as IFF, but it will let you try...

@@ -1,0 +1,116 @@
+CMPR/MQ/INSTALL - An MS-DOS based installer toolkit
+~~~~~~~~~~~~~~~
+
+The installer uses an INSTALL.CFG (described below) along with 'queue' files
+to load software onto the user's machine.
+
+The queue files are created with MQ by concatenating files compressed with
+CMPR which uses the SIXPACK compression system - the installer also has this
+compression system.
+
+CMPR simply compresses the files using SIXPACK. The main wrinkle added is
+that a header is added to the output file and also a form of checksum has
+been used on the output data for checking purposes.
+
+MQ joins the files as created by CMPR into a larger queue file adding no
+additional data at all. The program does however output the offsets within
+the queue file where each input file starts. This information is entered into
+the INSTALL.CFG file manually.
+
+For multi-disk installers, there must be one queue per disk, with queue file
+number N is contained on disk number N.
+
+A very simple onboard text file viewer can be used to view readme files, etc
+from the queue file - the file(s) involved must be in the first queue and
+should also be installed if appropriate by listing the queue position within
+a FILES list in addition to the VIEW entry. Any files to view in this way
+have to fit within 16,384 bytes (16K), though this is academic since the v1
+viewer does not allow scrolling...
+
+
+
+
+INSTALL.CFG notes
+
+
+
+GENERAL:
+
+Example lines shown with '| ' prefix - config names at left margin.
+Tags linking menus/submenus/files are case sensitive - suggest caps only.
+Menu handling is recursive - not too many levels please...
+Max items in a menu is 7 for neat screen layout.
+Order of lines not important.
+
+
+
+First two lines not used, so something like...
+
+| KLONDIKE 95 INSTALLATION INFORMATION FILE - DO NOT EDIT
+| =======================================================
+
+
+
+The following items MUST be present...
+Name of thing being installed: TITLE
+Number of 'queues' to install: QUEUES        +- 0: don't care
+Base name of queue files:      QUEUEBASE     |  1: suggest W95 mode
+Default destination:           DEST          |  2: need W95
+Windows 95 flag:               WIN95      <--+- 3: need W95, suggest W95 mode
+
+| TITLE=Klondike 95 v1.1r
+| QUEUES=2
+| QUEUEBASE=KLONDIKE
+| DEST=C:\KLONDIKE
+| WIN95=1
+
+
+
+Menus (must have at least one - MAIN) defined as follows:
+<TAG>=MENU
+<TAG>_nn=<number of items>
+<TAG>_00=<menu title>
+<TAG>_<n>=<SUBTAG>,<item 'n' name>
+
+| MAIN=MENU
+| MAIN_nn=4
+| MAIN_00=Main Installation Menu
+| MAIN_01=GAME,Klondike 95 Game Files
+| MAIN_02=CARDS,Optional Extra Cardsets
+| MAIN_03=UTILS,Klondike Utilities
+| MAIN_04=README,View Readme File
+
+
+
+File collections defined as follows:
+<TAG>=FILES
+<TAG>_ff=<default state - 1=on 0=off>
+<TAG>_nn=<number of files>
+<TAG>_<n>=<queue>,<queuepos>,<subdir>,[+]<filename>,<longfilename or .>
+
+If '+' present before filename entry, file is appended if already exists.
+
+| GAME=FILES
+| GAME_ff=1
+| GAME_nn=9
+| GAME_01=1,0,.,KLONDIKE.EXE,.
+| GAME_02=1,24611,.,KLONDIKE.DOC,.
+| GAME_03=1,31670,.,VERSIONS.TXT,.
+| GAME_04=1,32355,.,README.TXT,.
+| GAME_05=1,32469,DATA,TITLE.KLN,.
+| GAME_06=1,307962,DATA,WIN.KLN,.
+| GAME_07=1,361825,DATA,STDPREFS.REK,.
+| GAME_08=1,366790,DECKS,DEFAULT.REK,.
+| GAME_09=1,799216,DATA,+CSETINFO.DAT,Cardset Info.dat
+| :::::::::::::::::::::::::::::::::::::::::::
+| STTNG_01=1,1958593,DECKS,STTNG.REK,Star Trek TNG.rek
+| STTNG_02=1,2539402,DATA,+CSETINFO.DAT,Cardset Info.dat
+
+
+
+Viewer file defined as follows:
+<TAG>=VIEW
+<TAG>_01=<queuepos>
+
+| README=VIEW
+| README_01=32355

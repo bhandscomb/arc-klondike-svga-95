@@ -1,0 +1,7 @@
+CMPR
+~~~~
+    Usage: cmpr <infile> [outfile]
+
+Compresses files ready for joining with MQ. If no output name is given, the
+output name is as the input name, but with the last character changed to an
+underscore.

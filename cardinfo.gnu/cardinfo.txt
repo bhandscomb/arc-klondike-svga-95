@@ -1,0 +1,10 @@
+CARDINFO - A Klondike Utility
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The purpose of this tool is simply to display a little information about a
+selected cardset - it just reads the card file's header and reports the number
+of cards in the deck and the number of colours. Not bullet proof (no format
+checking!)
+
+Usage:
+    cardinfo <filename>
