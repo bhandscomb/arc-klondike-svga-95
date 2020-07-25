@@ -1,7 +1,0 @@
-Simple, type something like BMP2KLN TITLE.BMP TITLE.KLN and the BMP will
-be turned into a KLN.
-
-KLN files have a small text header used for identification:
-	KLONDIKE GFX!<cr><lf><eof>
-
-Thus, typing TYPE TITLE.KLN behaves quite nicely...
